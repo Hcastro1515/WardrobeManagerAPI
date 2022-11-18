@@ -16,7 +16,6 @@ namespace WardrobeManagerAPI.Services.WardrobeService.WardrobeService
 
 
         public List<Wardrobe> Wardrobes { get; set; } = new List<Wardrobe>();
-        public List<WardrobeItem> WardrobeItems { get; set; } = new List<WardrobeItem>();
 
         public async Task<List<Wardrobe>?> CreateWardrobe(Wardrobe w)
         {

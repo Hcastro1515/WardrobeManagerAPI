@@ -5,7 +5,6 @@ namespace WardrobeManagerAPI.Services.WardrobeService.WardrobeService
     public interface IWardrobeService
     {
         List<Wardrobe> Wardrobes { get; set; }
-        List<WardrobeItem> WardrobeItems { get; set; }
         Task LoadWardrobes();
         Task LaodWardrobeItems();
         Task<List<Wardrobe>?> GetAllWardrobes();
