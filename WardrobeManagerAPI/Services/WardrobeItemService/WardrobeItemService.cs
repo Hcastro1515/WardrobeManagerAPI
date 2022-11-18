@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 using WardrobeManagerAPI.Data;
 using WardrobeManagerAPI.Entities;
 using WardrobeManagerAPI.Services.WardrobeService.WardrobeService;
@@ -45,25 +46,56 @@ namespace WardrobeManagerAPI.Services.WardrobeItemService
 
         }
 
-        public Task<List<WardrobeItem>?> DeleteWardrobeItemForId(WardrobeItem wItem, int wardrobeId)
+        public async Task<bool> DeleteWardrobeItemForId(int itemId)
         {
-            throw new NotImplementedException();
+            bool deleted = false; 
+            //Check if item exist
+            var item = await GetWardrobeItemById(itemId); 
+
+            if(item != null )
+            {
+                _context.Remove(item); 
+                await _context.SaveChangesAsync();
+                deleted = true;
+            } else
+            {
+                return false; 
+            }
+
+            return deleted;
         }
 
         public async Task<List<WardrobeItem>?> GetAllWardrobeItemsForId(int id)
         {
-
-            return await _context.WardrobeItems.Where(i => i.WardrobeId == id).ToListAsync(); 
+            var items = await _context.WardrobeItems.Where(i => i.WardrobeId == id).ToListAsync();
+            
+            if(items.Count == 0) return null;
+            
+            return items; 
         }
 
         public async Task<WardrobeItem?> GetWardrobeItemById(int id)
         {
-           return await _context.WardrobeItems.FirstOrDefaultAsync(i => i.Id == id);
+            var item = await _context.WardrobeItems.FirstOrDefaultAsync(i => i.Id == id);
+            if (item == null) return null; 
+            return item;
         }
 
-        public Task<List<WardrobeItem>?> UpdateWardrobeItemForId(WardrobeItem wItem, int wardrobeId)
+        public async Task<List<WardrobeItem>?> UpdateWardrobeItemForId(WardrobeItem wItem, int wardrobeId)
         {
-            throw new NotImplementedException();
+            //check if item exist
+            WardrobeItem? item =  await GetWardrobeItemById(wItem.Id); 
+
+            
+            if(item != null)
+            {
+                item.Name = wItem.Name;
+                item.Description = wItem.Description;   
+                await _context.SaveChangesAsync();
+            }
+            
+            return await GetAllWardrobeItemsForId(wardrobeId);
+
         }
     }
 }

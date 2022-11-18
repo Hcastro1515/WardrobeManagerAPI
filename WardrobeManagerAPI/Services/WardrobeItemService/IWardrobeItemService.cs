@@ -11,6 +11,6 @@ namespace WardrobeManagerAPI.Services.WardrobeItemService
         Task<List<WardrobeItem>?> CreateWardrobeItemForId(WardrobeItem wItem,int wardrobeId);
         Task<WardrobeItem?> GetWardrobeItemById(int id);
         Task<List<WardrobeItem>?> UpdateWardrobeItemForId(WardrobeItem wItem, int wardrobeId);
-        Task<List<WardrobeItem>?> DeleteWardrobeItemForId(WardrobeItem wItem, int wardrobeId);
+        Task<bool>DeleteWardrobeItemForId(int wardrobeId);
     }
 }
