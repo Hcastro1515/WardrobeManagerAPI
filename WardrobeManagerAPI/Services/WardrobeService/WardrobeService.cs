@@ -20,7 +20,6 @@ namespace WardrobeManagerAPI.Services.WardrobeService.WardrobeService
         public async Task<List<Wardrobe>?> CreateWardrobe(Wardrobe w)
         {
 
-            List<Wardrobe>? wardrobes = null;
             try
             {
                 if (w != null)
@@ -28,7 +27,6 @@ namespace WardrobeManagerAPI.Services.WardrobeService.WardrobeService
                     w.Items = null;
                     await _context.Wardrobes.AddAsync(w);
                     await _context.SaveChangesAsync();
-                    wardrobes = await _context.Wardrobes.ToListAsync();
                 }
             }
             catch (Exception ex)
@@ -36,12 +34,11 @@ namespace WardrobeManagerAPI.Services.WardrobeService.WardrobeService
                 Console.Error.WriteLine(ex.Message);
             }
 
-            return wardrobes;
+            return await GetAllWardrobes();
         }
 
         public async Task<List<Wardrobe>?> DeleteWardrobe(int Id)
         {
-            List<Wardrobe>? wardrobes = null;
 
             try
             {
@@ -52,7 +49,6 @@ namespace WardrobeManagerAPI.Services.WardrobeService.WardrobeService
                     await _context.SaveChangesAsync();
                 }
 
-                wardrobes = await _context.Wardrobes.Include(w => w.Items).ToListAsync();
 
             }
             catch (Exception ex)
@@ -60,12 +56,12 @@ namespace WardrobeManagerAPI.Services.WardrobeService.WardrobeService
                 Console.Error.WriteLine(ex.Message);
             }
 
-            return wardrobes;
+            return await GetAllWardrobes();
         }
 
         public async Task<List<Wardrobe>?> GetAllWardrobes()
         {
-            return await _context.Wardrobes.ToListAsync();
+            return await _context.Wardrobes.Include(w => w.Items).ToListAsync();
         }
 
         public async Task<Wardrobe?> GetWardrobyId(int Id)
@@ -77,11 +73,6 @@ namespace WardrobeManagerAPI.Services.WardrobeService.WardrobeService
             return response;
         }
 
-        public async Task LaodWardrobeItems()
-        {
-            WardrobeItems = await _context.WardrobeItems.ToListAsync();
-        }
-
         public async Task LoadWardrobes()
         {
             Wardrobes = await _context.Wardrobes.ToListAsync();
@@ -89,7 +80,7 @@ namespace WardrobeManagerAPI.Services.WardrobeService.WardrobeService
 
         public async Task<List<Wardrobe>?> UpdateWardrobe(Wardrobe w)
         {
-            List<Wardrobe>? wardrobes = null;
+            
             Wardrobe? wardrobe = await _context.Wardrobes.FirstOrDefaultAsync(w => w.Id == w.Id);
             try
             {
@@ -99,14 +90,13 @@ namespace WardrobeManagerAPI.Services.WardrobeService.WardrobeService
                     await _context.SaveChangesAsync();
                 }
 
-                wardrobes = await _context.Wardrobes.Include(w => w.Items).ToListAsync();
             }
             catch (Exception ex)
             {
                 Console.Error.WriteLine(ex.Message);
             }
 
-            return wardrobes;
+            return await GetAllWardrobes();
         }
     }
 }

@@ -6,7 +6,6 @@ namespace WardrobeManagerAPI.Services.WardrobeService.WardrobeService
     {
         List<Wardrobe> Wardrobes { get; set; }
         Task LoadWardrobes();
-        Task LaodWardrobeItems();
         Task<List<Wardrobe>?> GetAllWardrobes();
         Task<Wardrobe?> GetWardrobyId(int Id);
         Task<List<Wardrobe>?> CreateWardrobe(Wardrobe w);

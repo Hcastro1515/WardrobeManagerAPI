@@ -7,12 +7,10 @@ namespace WardrobeManagerAPI.Services.WardrobeItemService
     {
 
         public List<WardrobeItem> WardrobeItems { get; set; }
-        Task<List<WardrobeItem>?> GetAllWardrobeItemsForId(int WardrobeId); 
-        Task<List<WardrobeItem>?> CreateWardrobeItemForId(WardrobeItem wItem,int WardrobeId);
+        Task<List<WardrobeItem>?> GetAllWardrobeItemsForId(int wardrobeId); 
+        Task<List<WardrobeItem>?> CreateWardrobeItemForId(WardrobeItem wItem,int wardrobeId);
         Task<WardrobeItem?> GetWardrobeItemById(int id);
-        Task<List<WardrobeItem>?> UpdateWardrobeItemForId(WardrobeItem wItem, int WardrobeId);
-        Task<List<WardrobeItem>?> DeleteWardrobeItemForId(WardrobeItem wItem, int WardrobeId);
-
-
+        Task<List<WardrobeItem>?> UpdateWardrobeItemForId(WardrobeItem wItem, int wardrobeId);
+        Task<List<WardrobeItem>?> DeleteWardrobeItemForId(WardrobeItem wItem, int wardrobeId);
     }
 }
