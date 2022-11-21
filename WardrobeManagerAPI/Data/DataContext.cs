@@ -11,6 +11,7 @@ namespace WardrobeManagerAPI.Data
 
         public DbSet<Wardrobe> Wardrobes => Set<Wardrobe>();
         public DbSet<WardrobeItem> WardrobeItems  => Set<WardrobeItem>();
+        public DbSet<WardrobeItemImageFile> ItemImages => Set<WardrobeItemImageFile>(); 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

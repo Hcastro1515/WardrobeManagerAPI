@@ -9,8 +9,9 @@ namespace WardrobeManagerAPI.Controllers
     [ApiController]
     public class WardrobeItemController : ControllerBase
     {
-        private readonly IWardrobeItemService _wardrobeItemService; 
-        public WardrobeItemController(IWardrobeItemService wardrobeItemService) {
+        private readonly IWardrobeItemService _wardrobeItemService;
+        public WardrobeItemController(IWardrobeItemService wardrobeItemService)
+        {
             _wardrobeItemService = wardrobeItemService;
         }
 
